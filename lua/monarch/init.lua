@@ -1,6 +1,7 @@
 local M = {}
 
-function M.load()
+-- Changed from M.load() to M.setup() to match your plugin config
+function M.setup() 
     if vim.g.colors_name then
         vim.cmd("hi clear")
     end
@@ -9,6 +10,9 @@ function M.load()
 
     local cp = require("monarch.palette").colors
     local groups = require("monarch.highlights").setup(cp)
+
+    -- Set Normal background first to ensure the "Void" applies immediately
+    vim.api.nvim_set_hl(0, "Normal", { fg = cp.fg, bg = cp.bg })
 
     for group, settings in pairs(groups) do
         vim.api.nvim_set_hl(0, group, settings)
