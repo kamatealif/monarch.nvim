@@ -1,6 +1,6 @@
 local M = {}
 
-function M.setup() -- Renamed to setup to fix the 'nil' error
+function M.setup()
     if vim.g.colors_name then
         vim.cmd("hi clear")
     end
@@ -8,15 +8,29 @@ function M.setup() -- Renamed to setup to fix the 'nil' error
     vim.g.colors_name = "monarch"
 
     local cp = require("monarch.palette").colors
-    local groups = require("monarch.highlights").setup(cp)
+    local highlights = require("monarch.highlights")
+    local groups = highlights.setup(cp)
 
-    -- IMPORTANT: Set the background to nil to allow your wallpaper to show through
-    vim.api.nvim_set_hl(0, "Normal", { fg = cp.fg, bg = "none" })
-    vim.api.nvim_set_hl(0, "NormalFloat", { fg = cp.fg, bg = "none" })
+    -- Function to force 'none' background for transparency
+    local function enforce_monarch_bg()
+        local transparent_groups = { 
+            "Normal", "NormalNC", "NormalFloat", 
+            "StatusLine", "SignColumn", "FoldColumn" 
+        }
+        for _, group in ipairs(transparent_groups) do
+            vim.api.nvim_set_hl(0, group, { fg = cp.fg, bg = "none" })
+        end
+    end
 
+    -- Apply initial highlights
     for group, settings in pairs(groups) do
         vim.api.nvim_set_hl(0, group, settings)
     end
+
+    -- Persistent transparency enforcement
+    vim.api.nvim_create_autocmd({ "UIEnter", "VimEnter", "ColorScheme" }, {
+        callback = function() vim.schedule(enforce_monarch_bg) end,
+    })
 end
 
 return M
