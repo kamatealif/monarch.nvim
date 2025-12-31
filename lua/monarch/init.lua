@@ -1,7 +1,6 @@
 local M = {}
 
--- Changed from M.load() to M.setup() to match your plugin config
-function M.setup() 
+function M.setup() -- Renamed to setup to fix the 'nil' error
     if vim.g.colors_name then
         vim.cmd("hi clear")
     end
@@ -11,8 +10,9 @@ function M.setup()
     local cp = require("monarch.palette").colors
     local groups = require("monarch.highlights").setup(cp)
 
-    -- Set Normal background first to ensure the "Void" applies immediately
-    vim.api.nvim_set_hl(0, "Normal", { fg = cp.fg, bg = cp.bg })
+    -- IMPORTANT: Set the background to nil to allow your wallpaper to show through
+    vim.api.nvim_set_hl(0, "Normal", { fg = cp.fg, bg = "none" })
+    vim.api.nvim_set_hl(0, "NormalFloat", { fg = cp.fg, bg = "none" })
 
     for group, settings in pairs(groups) do
         vim.api.nvim_set_hl(0, group, settings)
