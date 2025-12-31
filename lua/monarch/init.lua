@@ -15,14 +15,14 @@ function M.setup()
     local function enforce_monarch_bg()
         local transparent_groups = { 
             "Normal", "NormalNC", "NormalFloat", 
-            "StatusLine", "SignColumn", "FoldColumn" 
+            "StatusLine", "SignColumn", "FoldColumn", "EndOfBuffer" 
         }
         for _, group in ipairs(transparent_groups) do
             vim.api.nvim_set_hl(0, group, { fg = cp.fg, bg = "none" })
         end
     end
 
-    -- Apply initial highlights
+    -- Apply all highlight groups
     for group, settings in pairs(groups) do
         vim.api.nvim_set_hl(0, group, settings)
     end
