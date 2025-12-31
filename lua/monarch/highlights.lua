@@ -22,9 +22,9 @@ function M.setup(cp)
         Type       = { fg = cp.cyan, italic = true },
         Constant   = { fg = cp.critical },
         
-        -- FIX: Bold Sword Glow for Imports and Preprocessors
-        Include    = { fg = cp.mana, bold = true },
-        PreProc    = { fg = cp.mana, bold = true },
+        -- UPDATED: Imports set to Moonlit White (cp.fg) for maximum visibility
+        Include    = { fg = cp.fg, bold = true },
+        PreProc    = { fg = cp.fg, bold = true },
 
         -- Diagnostics (Pure Red Monarch Look)
         DiagnosticError = { fg = cp.critical, bold = true },
@@ -34,7 +34,8 @@ function M.setup(cp)
 
         -- Tree-Sitter & Plugins
         ["@function"]   = { fg = cp.mana, bold = true },
-        ["@include"]    = { fg = cp.mana, bold = true }, -- Tree-sitter specific
+        ["@include"]    = { fg = cp.fg, bold = true },   -- Tree-sitter import match
+        ["@preproc"]    = { fg = cp.fg, bold = true },   -- Tree-sitter preprocessor match
         ["@variable"]   = { fg = cp.fg },
         ["@keyword"]    = { fg = cp.system, bold = true },
         ["@property"]   = { fg = cp.cyan },
