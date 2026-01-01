@@ -1,47 +1,36 @@
 local M = {}
 
 function M.setup(cp)
-    local hl = function(group, opts) vim.api.nvim_set_hl(0, group, opts) end
-
     return {
-        -- Editor UI (Transparent Monarch style)
-        Normal = { fg = cp.fg, bg = "none" },
-        NormalFloat = { fg = cp.fg, bg = "none" },
-        FloatBorder = { fg = cp.border, bg = "none", bold = true },
-        CursorLine = { bg = cp.bg_alt },
-        LineNr = { fg = cp.comment },
-        CursorLineNr = { fg = cp.func, bold = true },
-        Visual = { bg = cp.bg_visual },
-        Search = { fg = cp.bg, bg = cp.yellow },
-        WinSeparator = { fg = cp.bg_alt, bold = true },
+        -- Base UI
+        Normal       = { fg = cp.fg, bg = "none" },
+        CursorLineNr = { fg = cp.mana, bold = true },
+        LineNr       = { fg = cp.comment },
+        Visual       = { bg = cp.aura },
 
-        -- Syntax highlighting (Retro Monarch)
-        Comment = { fg = cp.comment, italic = true },
-        Constant = { fg = cp.constant, bold = true },
-        String = { fg = cp.string },
-        Number = { fg = cp.number },
-        Boolean = { fg = cp.constant, bold = true },
-        Function = { fg = cp.func, bold = true },
-        Statement = { fg = cp.keyword, bold = true },
-        Keyword = { fg = cp.keyword, bold = true },
-        Operator = { fg = cp.operator },
-        Type = { fg = cp.type, italic = true },
-        Include = { fg = cp.fg, bold = true }, -- White Imports
+        -- THE RULE: Red for Keywords and Functions
+        Keyword    = { fg = cp.mana, bold = true },
+        Function   = { fg = cp.mana, bold = true },
+        Statement  = { fg = cp.mana, bold = true },
+        Operator   = { fg = cp.mana },
+        
+        -- THE RULE: White for Imports and Constants
+        Include    = { fg = cp.fg, bold = true },
+        Constant   = { fg = cp.fg, bold = true },
+        Boolean    = { fg = cp.fg, bold = true },
+        
+        -- THE RULE: Grayed-out for Variables, Strings, and Parameters
+        ["@variable"] = { fg = cp.faded },
+        ["@parameter"] = { fg = cp.faded, italic = true },
+        String        = { fg = cp.faded },
+        Number        = { fg = cp.faded },
+        Comment       = { fg = cp.comment, italic = true },
 
-        -- Treesitter
-        ["@function"] = { fg = cp.func, bold = true },
-        ["@keyword"] = { fg = cp.keyword, bold = true },
-        ["@variable"] = { fg = cp.variable },
-        ["@include"] = { fg = cp.fg, bold = true },
-        ["@punctuation.bracket"] = { fg = cp.func },
-
-        -- Plugins (Telescope / NvimTree / Git)
-        TelescopeBorder = { fg = cp.border, bold = true },
-        TelescopePromptTitle = { fg = cp.keyword, bold = true },
-        NvimTreeFolderName = { fg = cp.func },
-        GitSignsAdd = { fg = cp.string },
-        GitSignsChange = { fg = cp.type },
-        GitSignsDelete = { fg = cp.constant },
+        -- Tree-Sitter Specifics
+        ["@function"]     = { fg = cp.mana, bold = true },
+        ["@keyword"]      = { fg = cp.mana, bold = true },
+        ["@include"]      = { fg = cp.fg, bold = true },
+        ["@punctuation"]  = { fg = cp.faded },
     }
 end
 

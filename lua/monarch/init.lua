@@ -7,6 +7,10 @@ function M.setup()
     vim.g.colors_name = "monarch"
 
     local cp = require("monarch.palette").colors
+    vim.g.terminal_color_0 = cp.bg
+    vim.g.terminal_color_1 = cp.mana     -- Red for commands
+    vim.g.terminal_color_7 = cp.fg       -- White for text
+    vim.g.terminal_color_8 = cp.comment  -- Gray for directory paths
     local groups = require("monarch.highlights").setup(cp)
 
     for group, settings in pairs(groups) do
