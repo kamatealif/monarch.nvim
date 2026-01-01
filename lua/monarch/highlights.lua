@@ -1,61 +1,47 @@
 local M = {}
 
 function M.setup(cp)
+    local hl = function(group, opts) vim.api.nvim_set_hl(0, group, opts) end
+
     return {
-        -- Editor UI
-        Normal       = { fg = cp.fg, bg = "none" },
-        CursorLine   = { bg = cp.shadow },
-        CursorLineNr = { fg = cp.mana, bold = true },
-        LineNr       = { fg = cp.aura },
-        Visual       = { bg = cp.aura },
-        FloatBorder  = { fg = cp.mana, bold = true },
-        WinSeparator = { fg = cp.shadow },
-        Pmenu        = { fg = cp.fg, bg = cp.shadow },
-        PmenuSel     = { fg = cp.bg, bg = cp.mana, bold = true },
+        -- Editor UI (Transparent Monarch style)
+        Normal = { fg = cp.fg, bg = "none" },
+        NormalFloat = { fg = cp.fg, bg = "none" },
+        FloatBorder = { fg = cp.border, bg = "none", bold = true },
+        CursorLine = { bg = cp.bg_alt },
+        LineNr = { fg = cp.comment },
+        CursorLineNr = { fg = cp.func, bold = true },
+        Visual = { bg = cp.bg_visual },
+        Search = { fg = cp.bg, bg = cp.yellow },
+        WinSeparator = { fg = cp.bg_alt, bold = true },
 
-        -- Basic Syntax
-        Comment      = { fg = cp.comment, italic = true },
-        Constant     = { fg = cp.critical, bold = true },
-        String       = { fg = cp.green },
-        Number       = { fg = cp.system },
-        Boolean      = { fg = cp.critical, bold = true },
-        Function     = { fg = cp.mana, bold = true },
-        Statement    = { fg = cp.system, bold = true },
-        Keyword      = { fg = cp.system, bold = true },
-        Operator     = { fg = cp.mana },
-        Type         = { fg = cp.cyan, italic = true },
-        Include      = { fg = cp.fg, bold = true }, -- Moonlit White Imports
+        -- Syntax highlighting (Retro Monarch)
+        Comment = { fg = cp.comment, italic = true },
+        Constant = { fg = cp.constant, bold = true },
+        String = { fg = cp.string },
+        Number = { fg = cp.number },
+        Boolean = { fg = cp.constant, bold = true },
+        Function = { fg = cp.func, bold = true },
+        Statement = { fg = cp.keyword, bold = true },
+        Keyword = { fg = cp.keyword, bold = true },
+        Operator = { fg = cp.operator },
+        Type = { fg = cp.type, italic = true },
+        Include = { fg = cp.fg, bold = true }, -- White Imports
 
-        -- Tree-sitter
-        ["@function"]           = { fg = cp.mana, bold = true },
-        ["@function.builtin"]   = { fg = cp.mana, bold = true },
-        ["@keyword"]            = { fg = cp.system, bold = true },
-        ["@keyword.return"]     = { fg = cp.system, bold = true },
-        ["@include"]            = { fg = cp.fg, bold = true },
-        ["@variable"]           = { fg = cp.fg },
-        ["@variable.builtin"]   = { fg = cp.critical, italic = true },
-        ["@property"]           = { fg = cp.cyan },
-        ["@punctuation.bracket"] = { fg = cp.mana },
+        -- Treesitter
+        ["@function"] = { fg = cp.func, bold = true },
+        ["@keyword"] = { fg = cp.keyword, bold = true },
+        ["@variable"] = { fg = cp.variable },
+        ["@include"] = { fg = cp.fg, bold = true },
+        ["@punctuation.bracket"] = { fg = cp.func },
 
-        -- Diagnostics
-        DiagnosticError = { fg = cp.critical, bold = true },
-        DiagnosticWarn  = { fg = cp.yellow },
-        DiagnosticInfo  = { fg = cp.cyan },
-        DiagnosticHint  = { fg = cp.comment },
-        DiagnosticUnderlineError = { undercurl = true, sp = cp.critical },
-
-        -- Telescope
-        TelescopeNormal         = { fg = cp.fg, bg = "none" },
-        TelescopeBorder         = { fg = cp.mana, bold = true },
-        TelescopePromptBorder   = { fg = cp.system, bold = true },
-        TelescopeSelection      = { fg = cp.fg, bg = cp.aura },
-        TelescopeMatching       = { fg = cp.mana, bold = true },
-
-        -- NvimTree
-        NvimTreeNormal          = { fg = cp.fg, bg = "none" },
-        NvimTreeFolderName      = { fg = cp.mana },
-        NvimTreeOpenedFolderName = { fg = cp.mana, bold = true },
-        NvimTreeGitDirty        = { fg = cp.yellow },
+        -- Plugins (Telescope / NvimTree / Git)
+        TelescopeBorder = { fg = cp.border, bold = true },
+        TelescopePromptTitle = { fg = cp.keyword, bold = true },
+        NvimTreeFolderName = { fg = cp.func },
+        GitSignsAdd = { fg = cp.string },
+        GitSignsChange = { fg = cp.type },
+        GitSignsDelete = { fg = cp.constant },
     }
 end
 
