@@ -13,7 +13,7 @@ M.colors = {
     cherry   = "#D9263E", -- For Numbers
     gold     = "#DE3448", -- For Types
     blood    = "#FF0000", -- For Constants/Booleans
-    comment  = "#3E161B", -- Deep Cherry Shadows
+    comment  = "#817a7bff", -- Deep Cherry Shadows
 }
 
 return M
