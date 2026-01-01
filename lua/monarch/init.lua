@@ -1,33 +1,30 @@
 local M = {}
 
 function M.setup()
-    vim.cmd("hi clear")
-    if vim.fn.exists("syntax_on") then vim.cmd("syntax reset") end
+    if vim.g.colors_name then vim.cmd("hi clear") end
     vim.o.termguicolors = true
     vim.g.colors_name = "monarch"
 
     local cp = require("monarch.palette").colors
-    vim.g.terminal_color_0 = cp.bg
-    vim.g.terminal_color_1 = cp.mana     -- Red for commands
-    vim.g.terminal_color_7 = cp.fg       -- White for text
-    vim.g.terminal_color_8 = cp.comment  -- Gray for directory paths
-    local groups = require("monarch.highlights").setup(cp)
+    local highlights = require("monarch.highlights").setup(cp)
 
-    for group, settings in pairs(groups) do
+    -- Apply all highlights
+    for group, settings in pairs(highlights) do
         vim.api.nvim_set_hl(0, group, settings)
     end
 
-    -- Terminal colors matching NES structure
-    vim.g.terminal_color_0 = cp.bg
-    vim.g.terminal_color_1 = cp.constant
-    vim.g.terminal_color_2 = cp.string
-    vim.g.terminal_color_3 = cp.yellow
-    vim.g.terminal_color_4 = cp.func
-    vim.g.terminal_color_5 = cp.keyword
-    vim.g.terminal_color_6 = cp.type
-    vim.g.terminal_color_7 = cp.fg
+    -- Red Monarch Terminal Sync
+    vim.g.terminal_color_0  = cp.bg
+    vim.g.terminal_color_1  = cp.mana
+    vim.g.terminal_color_2  = cp.faded
+    vim.g.terminal_color_3  = cp.system
+    vim.g.terminal_color_4  = cp.mana
+    vim.g.terminal_color_5  = cp.aura
+    vim.g.terminal_color_6  = cp.blood
+    vim.g.terminal_color_7  = cp.fg
+    vim.g.terminal_color_15 = cp.white
 
-    -- Transparency Enforcement
+    -- Btop-style transparency enforcement
     local function enforce_bg()
         local groups = { "Normal", "NormalNC", "NormalFloat", "SignColumn", "StatusLine" }
         for _, g in ipairs(groups) do
