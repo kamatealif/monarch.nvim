@@ -2,40 +2,44 @@ local M = {}
 
 function M.setup(cp)
     return {
-        -- Base Editor UI
+        -- Base UI (NES "Boxed" look)
         Normal       = { fg = cp.fg, bg = "none" },
-        NormalFloat  = { fg = cp.fg, bg = "none" },
-        FloatBorder  = { fg = cp.mana, bold = true },
+        NormalFloat  = { fg = cp.fg, bg = cp.shadow },
+        FloatBorder  = { fg = cp.mana, bold = true }, -- Thick "Sword Glow" Borders
+        WinSeparator = { fg = cp.mana, bold = true }, -- Visible window splits
+        
         CursorLine   = { bg = cp.shadow },
         CursorLineNr = { fg = cp.mana, bold = true },
-        LineNr       = { fg = cp.comment },
-        
-        -- PULSE AURA: High-contrast selection
-        Visual       = { bg = cp.aura, fg = cp.white, bold = true },
+        LineNr       = { fg = cp.aura },
+        Visual       = { bg = cp.aura, bold = true },
 
-        -- LOGIC: Tiered Red Hierarchy
-        Function     = { fg = cp.mana, bold = true },   -- Sword Glow Red
-        Keyword      = { fg = cp.system, bold = true }, -- Vivid Crimson
-        Statement    = { fg = cp.system, bold = true },
-        Operator     = { fg = cp.mana },                -- Active Operators
+        -- Retro High-Contrast Syntax
+        -- Note: Retro themes use BOLD for almost all structural keywords
+        Keyword    = { fg = cp.system, bold = true },
+        Function   = { fg = cp.mana, bold = true },
+        Statement  = { fg = cp.system, bold = true },
+        Conditional= { fg = cp.system, bold = true },
+        Repeat     = { fg = cp.system, bold = true },
         
-        -- STRUCTURE: Moonlit White
-        Include      = { fg = cp.fg, bold = true },     -- White Imports
-        Constant     = { fg = cp.blood, bold = true },  -- Blood Red Constants
+        -- High-Visibility Data Types
+        String     = { fg = cp.rose },
+        Number     = { fg = cp.cherry, bold = true },
+        Boolean    = { fg = cp.blood, bold = true },
+        Type       = { fg = cp.gold, bold = true },
+        Constant   = { fg = cp.blood, bold = true },
         
-        -- THE SHADOWS: User-defined content
-        ["@variable"] = { fg = cp.faded },               -- Variables recede
-        ["@parameter"] = { fg = cp.faded, italic = true },
-        String        = { fg = cp.faded },               -- Subdued content
-        Comment       = { fg = cp.comment, italic = true },
+        Comment    = { fg = cp.comment, italic = true },
+        Include    = { fg = cp.fg, bold = true }, -- White Imports per your preference
 
-        -- Tree-Sitter & Plugin Coverage
-        ["@function"]     = { fg = cp.mana, bold = true },
-        ["@keyword"]      = { fg = cp.system, bold = true },
-        ["@include"]      = { fg = cp.fg, bold = true },
-        ["@punctuation"]  = { fg = cp.comment }, -- Brackets blend into shadows
-        TelescopeBorder   = { fg = cp.mana, bold = true },
-        NvimTreeFolderName = { fg = cp.mana },
+        -- Modern Diagnostics in Retro Style
+        DiagnosticError = { fg = cp.blood, bold = true, undercurl = true },
+        DiagnosticWarn  = { fg = cp.cherry, bold = true },
+        DiagnosticInfo  = { fg = cp.gold },
+        DiagnosticHint  = { fg = cp.comment },
+        
+        -- Telescope & Plugin Boxes
+        TelescopeBorder = { fg = cp.mana, bold = true },
+        TelescopePromptBorder = { fg = cp.system, bold = true },
     }
 end
 
