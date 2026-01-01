@@ -1,7 +1,7 @@
 local M = {}
 
 M.colors = {
-    bg       = "#0F0508", -- Deep Red-Black (Void)
+    bg       = "#0F0508", -- Void Black
     fg       = "#F0E0E6", -- Moonlit White
     mana     = "#FF1F4C", -- Sword Glow Red
     system   = "#BE2E3F", -- Vivid Red
@@ -11,8 +11,7 @@ M.colors = {
     yellow   = "#D9263E", -- Hair Red
     cyan     = "#DE3448", -- Bright Rose
     critical = "#FF0000", -- Blood Red
-    comment  = "#3E161B", -- Deep Cherry
-    white    = "#FFFFFF",
+    comment  = "#3E161B", -- Deep Cherry Shadows
 }
 
 return M
