@@ -13,7 +13,7 @@ M.colors = {
     
     -- Grayed/Faded Elements
     faded    = "#8A7A80", -- Shadow Gray (Variables/Strings)
-    comment  = "#3E161B", -- Deep Cherry Gray (Comments/Faded)
+    comment  = "#a2a1a1ff", -- Deep Cherry Gray (Comments/Faded)
     
     aura     = "#5E1C24", -- Selection Background
     white    = "#FFFFFF", -- Pure White Glow
