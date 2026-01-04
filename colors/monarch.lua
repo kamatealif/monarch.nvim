@@ -1,3 +1,3 @@
 -- Execute the loading logic
-require("monarch").setup()
+require("monarch").load()
 
