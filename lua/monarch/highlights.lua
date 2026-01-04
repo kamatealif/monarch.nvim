@@ -2,44 +2,30 @@ local M = {}
 
 function M.setup(cp)
     return {
-        -- Base UI (NES "Boxed" look)
+        -- Base Editor UI
         Normal       = { fg = cp.fg, bg = "none" },
-        NormalFloat  = { fg = cp.fg, bg = cp.shadow },
-        FloatBorder  = { fg = cp.mana, bold = true }, -- Thick "Sword Glow" Borders
-        WinSeparator = { fg = cp.mana, bold = true }, -- Visible window splits
-        
-        CursorLine   = { bg = cp.shadow },
+        NormalFloat  = { fg = cp.fg, bg = "none" },
+        FloatBorder  = { fg = cp.mana, bold = true },
         CursorLineNr = { fg = cp.mana, bold = true },
-        LineNr       = { fg = cp.aura },
-        Visual       = { bg = cp.aura, bold = true },
+        LineNr       = { fg = cp.comment },
+        
+        -- Pulse Aura Selection
+        Visual       = { bg = cp.aura, fg = cp.white, bold = true },
 
-        -- Retro High-Contrast Syntax
-        -- Note: Retro themes use BOLD for almost all structural keywords
-        Keyword    = { fg = cp.system, bold = true },
-        Function   = { fg = cp.mana, bold = true },
-        Statement  = { fg = cp.system, bold = true },
-        Conditional= { fg = cp.system, bold = true },
-        Repeat     = { fg = cp.system, bold = true },
+        -- Logic Hierarchy (The Red Rule)
+        Function     = { fg = cp.mana, bold = true },   -- Sword Glow Red
+        Keyword      = { fg = cp.system, bold = true }, -- Vivid Crimson
+        Operator     = { fg = cp.mana },
         
-        -- High-Visibility Data Types
-        String     = { fg = cp.rose },
-        Number     = { fg = cp.cherry, bold = true },
-        Boolean    = { fg = cp.blood, bold = true },
-        Type       = { fg = cp.gold, bold = true },
-        Constant   = { fg = cp.blood, bold = true },
-        
-        Comment    = { fg = cp.comment, italic = true },
-        Include    = { fg = cp.fg, bold = true }, -- White Imports per your preference
+        -- Shadow Content (The Gray Rule)
+        ["@variable"]  = { fg = cp.faded },
+        ["@parameter"] = { fg = cp.faded, italic = true },
+        String         = { fg = cp.faded },
+        Comment        = { fg = cp.comment, italic = true },
 
-        -- Modern Diagnostics in Retro Style
-        DiagnosticError = { fg = cp.blood, bold = true, undercurl = true },
-        DiagnosticWarn  = { fg = cp.cherry, bold = true },
-        DiagnosticInfo  = { fg = cp.gold },
-        DiagnosticHint  = { fg = cp.comment },
-        
-        -- Telescope & Plugin Boxes
-        TelescopeBorder = { fg = cp.mana, bold = true },
-        TelescopePromptBorder = { fg = cp.system, bold = true },
+        -- Structure
+        Include  = { fg = cp.fg, bold = true }, -- Moonlit White Imports
+        Constant = { fg = cp.blood, bold = true },
     }
 end
 

@@ -1,28 +1,27 @@
 local M = {}
 
 function M.setup()
-    if vim.g.colors_name then vim.cmd("hi clear") end
-    vim.o.termguicolors = true
+    vim.cmd("hi clear")
+    if vim.fn.exists("syntax_on") then vim.cmd("syntax reset") end
     vim.g.colors_name = "monarch"
 
     local cp = require("monarch.palette").colors
-    local highlights = require("monarch.highlights").setup(cp)
+    local hl = require("monarch.highlights").setup(cp)
 
-    -- Applying the Retro Monarch groups
-    for group, settings in pairs(highlights) do
+    for group, settings in pairs(hl) do
         vim.api.nvim_set_hl(0, group, settings)
     end
 
-    -- Btop-style transparency enforcement
-    local function enforce_bg()
-        local groups = { "Normal", "NormalNC", "SignColumn", "StatusLine" }
+    -- Persistent Transparency Sync
+    local function enforce_void()
+        local groups = { "Normal", "NormalNC", "NormalFloat", "SignColumn" }
         for _, g in ipairs(groups) do
             vim.api.nvim_set_hl(0, g, { fg = cp.fg, bg = "none" })
         end
     end
 
     vim.api.nvim_create_autocmd({ "UIEnter", "ColorScheme" }, {
-        callback = function() vim.schedule(enforce_bg) end,
+        callback = function() vim.schedule(enforce_void) end,
     })
 end
 
