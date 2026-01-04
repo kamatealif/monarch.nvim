@@ -34,20 +34,23 @@ Using **lazy.nvim**:
 
 ```lua
 return {
+  -- 1. Load your theme from your GitHub
   {
-    "kamatealif/monarch.nvim", -- Replace with your GitHub URL after uploading
+    "kamatealif/monarch.nvim",
     lazy = false,
     priority = 1000,
     config = function()
       vim.cmd([[colorscheme monarch]])
     end,
   },
-  -- Optional: Ensure LazyVim uses it as default
+
+  -- 2. Force Lualine to use your custom Monarch colors
   {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "monarch",
-    },
+    "nvim-lualine/lualine.nvim",
+    opts = function(_, opts)
+      local monarch = require("monarch")
+      opts.options.theme = monarch.lualine_theme
+    end,
   },
 }
 ```
