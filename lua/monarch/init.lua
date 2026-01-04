@@ -24,6 +24,7 @@ function M.setup()
         vim.api.nvim_set_hl(0, group, opts)
     end
 
+
     ---------------------------------------------------------
     -- UI & Editor Basics
     ---------------------------------------------------------
@@ -88,6 +89,11 @@ function M.setup()
             c = { bg = colors.bg, fg = colors.blood_red },
         },
     }
+        -- Load Terminal Styling
+    require("monarch.terminal").setup()
+
+    -- load buffer styuling 
+    require("monarch.buffer").setup()
 end
 
 return M
