@@ -1,5 +1,6 @@
 local M = {}
 
+--Monarch Palette
 local colors = {
     bg            = "#0b090a",
     bg_alt        = "#161a1d",
@@ -23,19 +24,26 @@ function M.setup()
         vim.api.nvim_set_hl(0, group, opts)
     end
 
-    -- Editor Basics
+    ---------------------------------------------------------
+    -- UI & Editor Basics
+    ---------------------------------------------------------
     hl("Normal",       { fg = colors.light_silver, bg = colors.bg })
     hl("NormalFloat",  { fg = colors.light_silver, bg = colors.bg_alt })
     hl("CursorLine",   { bg = colors.bg_alt })
-    hl("LineNr",       { fg = colors.blood_red })
+    
+    -- Line Numbers (Customized to White as requested)
+    hl("LineNr",       { fg = colors.white }) 
     hl("CursorLineNr", { fg = colors.bright_red, bold = true })
+    
     hl("Visual",       { bg = colors.blood_red, fg = colors.white })
     hl("Search",       { bg = colors.crimson, fg = colors.white })
     hl("Pmenu",        { bg = colors.bg_alt, fg = colors.light_silver })
     hl("PmenuSel",     { bg = colors.bright_red, fg = colors.bg })
-    hl("VertSplit",    { fg = colors.bg_alt, bg = "NONE" })
+    hl("VertSplit",    { fg = colors.bg_alt })
 
-    -- Syntax
+    ---------------------------------------------------------
+    -- Syntax Highlighting
+    ---------------------------------------------------------
     hl("Comment",      { fg = colors.blood_red, italic = true })
     hl("Constant",     { fg = colors.off_white })
     hl("String",       { fg = colors.silver })
@@ -47,20 +55,39 @@ function M.setup()
     hl("Operator",     { fg = colors.bright_red })
     hl("Number",       { fg = colors.off_white })
 
-    -- Treesitter (Make it look modern)
+    ---------------------------------------------------------
+    -- Treesitter (Modern Syntax)
+    ---------------------------------------------------------
     hl("@variable",           { fg = colors.light_silver })
     hl("@function",           { fg = colors.bright_red, bold = true })
     hl("@keyword",            { fg = colors.vivid_red })
     hl("@property",           { fg = colors.crimson })
-    hl("@constructor",        { fg = colors.bright_red })
     hl("@punctuation.bracket",{ fg = colors.silver })
-    hl("@tag",                { fg = colors.vivid_red })
 
-    -- LSP Diagnostics
-    hl("DiagnosticError", { fg = colors.bright_red })
-    hl("DiagnosticWarn",  { fg = colors.vivid_red })
-    hl("DiagnosticInfo",  { fg = colors.silver })
-    hl("DiagnosticHint",  { fg = colors.crimson })
+    ---------------------------------------------------------
+    -- Status Bar (Lualine) Theme Integration
+    ---------------------------------------------------------
+    M.lualine_theme = {
+        normal = {
+            a = { bg = colors.bright_red, fg = colors.bg, gui = "bold" }, -- "NORMAL" Mode
+            b = { bg = colors.bg_alt, fg = colors.bright_red },
+            c = { bg = colors.bg, fg = colors.light_silver },
+        },
+        insert = {
+            a = { bg = colors.white, fg = colors.bg, gui = "bold" },      -- "INSERT" Mode
+        },
+        visual = {
+            a = { bg = colors.vivid_red, fg = colors.white, gui = "bold" },-- "VISUAL" Mode
+        },
+        replace = {
+            a = { bg = colors.crimson, fg = colors.white, gui = "bold" },
+        },
+        inactive = {
+            a = { bg = colors.bg, fg = colors.blood_red },
+            b = { bg = colors.bg, fg = colors.blood_red },
+            c = { bg = colors.bg, fg = colors.blood_red },
+        },
+    }
 end
 
 return M
