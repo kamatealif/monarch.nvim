@@ -34,15 +34,20 @@ Using **lazy.nvim**:
 
 ```lua
 return {
-    {
-        "kamatealif/monarch.nvim",
-        lazy = false,
-        priority = 1000,
-        config = function()
-            -- Initialize variables and load the theme
-            require("monarch").setup()
-            vim.cmd.colorscheme("monarch")
-        end,
+  {
+    "kamatealif/monarch.nvim", -- Replace with your GitHub URL after uploading
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd([[colorscheme monarch]])
+    end,
+  },
+  -- Optional: Ensure LazyVim uses it as default
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "monarch",
     },
+  },
 }
 ```
