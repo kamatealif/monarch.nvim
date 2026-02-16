@@ -1,55 +1,48 @@
-# 🗡️ Monarch.nvim
+# Monarch.nvim
 
-**Monarch.nvim** is an atmospheric, high-contrast Neovim theme inspired by the "Shadow Monarch" aesthetic. It replaces traditional syntax colors with a lethal palette of **Sword Glow Red**, **Moonlit White**, and **Deep Red-Black**.
+**Monarch.nvim** is a red-driven Neovim colorscheme with a muted, focused hierarchy.
 
-Designed for those who want their editor to feel like a high-level dungeon system, it provides a sharp, focused environment for both coding and system "ricing".
+It uses:
 
----
+- transparent panel backgrounds (`"NONE"`) for the main editor surface
+- shaded selection blocks (`#32292C`) instead of loud highlights
+- red accents for only high-priority syntax (`Keyword`, `Function`, `Operator`, `Delimiter`)
+- neutral grayscale for most other syntax groups
 
-## ✨ Key Features
+## Key Features
 
-- **The "Void" Background**: Uses a deep red-black shadow (`#0F0508`) that grounds your workspace and reduces eye strain.
-- **Sword Glow Accents**: Critical functions, operators, and UI borders pulse with a vibrant **Sword Glow Red** (`#FF1F4C`).
-- **System Atmosphere**: Keywords and logic flow use **Vivid Red** and **Hair Red** to mimic a status window interface.
-- **Moonlit Legibility**: Core text is rendered in **Moonlit White** (`#F0E0E6`) for perfect clarity against dark backgrounds.
-- **Modern Support**: Full integration with **Tree-sitter**, **LSP diagnostics**, and popular plugins like **Telescope** and **NvimTree**.
+- Red Monarch syntax hierarchy: red where intent matters, grayscale everywhere else.
+- Shaded UI layers: subtle line numbers, folds, menus, statusline, and tabs.
+- Search and diagnostics tuned to muted reds for visual consistency.
+- Treesitter and classic Vim highlight groups are both mapped.
+- Plugin groups included for Telescope and Alpha.
+- Startup/event background enforcement for transparent panel consistency.
+- ANSI terminal colors exported from the same palette.
 
----
+## Palette Summary
 
-## 🎨 Palette Summary
+| Token       | Hex       | Usage                                          |
+| :---------- | :-------- | :--------------------------------------------- |
+| `panel`     | `NONE`    | Main editor/floating backgrounds               |
+| `fg`        | `#EDEDED` | Primary foreground text                        |
+| `subtle`    | `#7A6F73` | Comments, line numbers, low-priority UI        |
+| `selection` | `#32292C` | Visual selection and cursorline surfaces       |
+| `hot_red`   | `#BF1111` | Keywords, functions, operators, active accents |
+| `mid_red`   | `#8A1A1A` | Search and secondary red accents               |
+| `border`    | `#BF1111` | Float/window borders                           |
 
-| Element        | Hex Code  | Purpose                |
-| :------------- | :-------- | :--------------------- |
-| **Void**       | `#0F0508` | Main Background        |
-| **Moonlit**    | `#F0E0E6` | Primary Text           |
-| **Sword Glow** | `#FF1F4C` | Functions & UI Accents |
-| **Hair Red**   | `#D9263E` | Selection & Highlights |
-| **Cherry**     | `#3E161B` | Muted Comments         |
+## Installation
 
----
-
-## 🚀 Installation
-
-Using **lazy.nvim**:
+Using `lazy.nvim`:
 
 ```lua
 return {
-  -- 1. Load your theme from your GitHub
   {
     "kamatealif/monarch.nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd([[colorscheme monarch]])
-    end,
-  },
-
-  -- 2. Force Lualine to use your custom Monarch colors
-  {
-    "nvim-lualine/lualine.nvim",
-    opts = function(_, opts)
-      local monarch = require("monarch")
-      opts.options.theme = monarch.lualine_theme
+      vim.cmd("colorscheme monarch")
     end,
   },
 }
