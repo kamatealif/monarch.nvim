@@ -9,6 +9,14 @@ end
 function M.setup()
     local p = require("monarch.palette")
     local highlights = require("monarch.highlights").get()
+    local panel = p.panel or p.none or p.bg
+    local fg = p.fg or p.light_silver
+    local subtle = p.subtle or p.silver
+    local selection = p.selection or p.bg_alt
+
+    vim.o.termguicolors = true
+    vim.o.winblend = 0
+    vim.o.pumblend = 0
 
     -- Reset existing highlights
     vim.cmd("hi clear")
@@ -18,6 +26,31 @@ function M.setup()
 
     -- Apply all Color Corrections
     apply(highlights)
+
+    -- Keep transparent panel groups consistent after startup/plugin redraws
+    local function enforce_panel()
+        vim.api.nvim_set_hl(0, "Normal", { fg = fg, bg = panel })
+        vim.api.nvim_set_hl(0, "NormalNC", { fg = fg, bg = panel })
+        vim.api.nvim_set_hl(0, "NormalFloat", { fg = fg, bg = panel })
+        vim.api.nvim_set_hl(0, "StatusLine", { fg = fg, bg = selection })
+        vim.api.nvim_set_hl(0, "TabLine", { fg = subtle, bg = panel })
+        vim.api.nvim_set_hl(0, "AlphaNormal", { fg = fg, bg = panel })
+    end
+
+    local group = vim.api.nvim_create_augroup("MonarchPanelEnforce", { clear = true })
+    vim.api.nvim_create_autocmd({ "UIEnter", "VimEnter", "ColorScheme" }, {
+        group = group,
+        callback = function()
+            vim.schedule(enforce_panel)
+        end,
+    })
+    vim.api.nvim_create_autocmd("User", {
+        group = group,
+        pattern = "AlphaReady",
+        callback = function()
+            vim.schedule(enforce_panel)
+        end,
+    })
 
     -- Correct Terminal Colors (ANSI)
     vim.g.terminal_color_0 = p.bg
